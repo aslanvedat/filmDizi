@@ -2,6 +2,7 @@ package com.example.filmDizi.service;
 
 import com.example.filmDizi.dto.request.FilmRequestDto;
 import com.example.filmDizi.entity.Film;
+import com.example.filmDizi.exception.ApiRequestException;
 import com.example.filmDizi.repostory.FilmRepostory;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +30,8 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public Film findById(long id){
 Optional<Film>filmOptional =filmRepostory.findById(id);
-return filmOptional.orElseThrow(()->new RuntimeException("film is not found"));
-//bi sonraki is exception package olusturma (alttaki kod satiri calismali).
-       // return filmOptional.orElseThrow(()->new  ApiRequestException("film is not found"));
+//return filmOptional.orElseThrow(()->new RuntimeException("film is not found"));
+        return filmOptional.orElseThrow(()->new ApiRequestException("film is not found"));
     }
     @Override
     public  Film deleteFilm(long id){
